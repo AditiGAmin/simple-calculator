@@ -17,41 +17,29 @@ public class StringtoOpr {
         }
         
         if (operatorIndex == -1){
-            //throw new ExceptionHandler("Incomplete Input");
             double num = Double.parseDouble(input.trim());
             return new OperationData(num, 0, '+'); 
         }
         
-
-        double num1 = Double.parseDouble(input.substring(0,operatorIndex).trim());
+        double num1 =0;
+        
+        num1 = Double.parseDouble(input.substring(0,operatorIndex).trim());
+        if(Double.isNaN(num1)){
         System.out.println(num1+" "+" "+ operator);     //************** */
-        String tempnum2= input.substring(operatorIndex+1);
+        }
+
+        
 
         double num2 =0;
+        String tempnum2= input.substring(operatorIndex+1);
+        
         if (!tempnum2.isEmpty()){
             num2 = Double.parseDouble(input.substring(operatorIndex+1).trim());
             System.out.println(num1+" "+num2+" "+ operator);    //************** */
         }
         else{
-            System.out.println("inside handler");
             throw new ExceptionHandler("Incomplete Input");
         }
-        
-
-        // you're here <<<<<<<<>>>>>>>>>
-        /*
-        if (Double.isNaN(num1) || Double.isNaN(num2)){
-            
-        }
-
-
-        
-        if (operator == '\0'){
-            throw new ExceptionHandler("Missing Operator");
-        }
-        
-        
-             */
 
 
         if (operator == '/' && num2 == 0){

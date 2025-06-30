@@ -7,6 +7,14 @@ import java.awt.event.*;
 import operations.*;
 
 public class CalculatorDisplay extends JFrame{
+
+    private JTextField display;
+    private boolean errorDisplayed = false;     // Error Flag
+
+    private void clearAll(){
+        display.setText("");
+        errorDisplayed = false;
+    }
     public CalculatorDisplay(){
         JFrame frame = new JFrame("Simple Calculator");
         frame.setSize(400,600);
@@ -14,10 +22,12 @@ public class CalculatorDisplay extends JFrame{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         
-        JTextField display = new JTextField();
+        display = new JTextField();
+        display.setEditable(false);
         display.setBounds(20,20,350,100);
         frame.add(display);
 
+        //ErrorHandler.setDisplay(this);
 
         JButton btn0 = new JButton("0");
         btn0.setBounds(25,490,150,60);
@@ -25,7 +35,12 @@ public class CalculatorDisplay extends JFrame{
 
         btn0.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+String.valueOf(0));
+                System.out.println("clicked 0!");
+                if(errorDisplayed){
+                    clearAll();
+                    errorDisplayed = false;
+                }
+                display.setText(display.getText()+"0");
             }
         });
 
@@ -36,7 +51,11 @@ public class CalculatorDisplay extends JFrame{
 
         btn1.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+String.valueOf(1));
+                if(errorDisplayed){
+                    clearAll();
+                    errorDisplayed = false;
+                }
+                display.setText(display.getText()+"1");
             }
         });
 
@@ -131,7 +150,7 @@ public class CalculatorDisplay extends JFrame{
         frame.add(btndivot);
 
         btndivot.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){       //lblOutput.setText(txtInput.getText());
+            public void actionPerformed(ActionEvent ae){
                 display.setText(display.getText()+".");
             }
         });
@@ -188,17 +207,6 @@ public class CalculatorDisplay extends JFrame{
         btneq.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
                 
-
-
-                
-/*
-                if(Double.isNaN(result)){
-                    display.setText("ERROR");
-                }
-                else{
-                    
-                } */
-                
                 try{
                     String input = display.getText();
 
@@ -212,7 +220,8 @@ public class CalculatorDisplay extends JFrame{
                     display.setText(answer);
                 }
                 catch (ExceptionHandler e){
-                    display.setText(e.getMessage());
+                    display.setText(e.getMessage()+"by handler");
+                    errorDisplayed = true;
                 }
             }
         });

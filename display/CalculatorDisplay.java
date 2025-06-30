@@ -8,13 +8,38 @@ import operations.*;
 
 public class CalculatorDisplay extends JFrame{
 
-    private JTextField display;
-    private boolean errorDisplayed = false;     // Error Flag
+    public JTextField display;
+    public boolean errorDisplayed = false;     // Error Flag
 
-    private void clearAll(){
+    public void clearAll(){
         display.setText("");
         errorDisplayed = false;
     }
+
+    public void addDigitButton(JButton button, String digit){
+        button.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                if (errorDisplayed){
+                    clearAll();
+                }
+                display.setText(display.getText()+digit);
+            }
+        });
+    }
+
+    public void addOperatorButton(JButton button, String operator,JButton[] operatorButtons){
+            button.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                if (errorDisplayed){
+                    clearAll();
+                }
+                display.setText(display.getText()+operator);
+                for(JButton b : operatorButtons){
+                    b.setEnabled(false);
+                }
+            }
+        });
+        }
     public CalculatorDisplay(){
         JFrame frame = new JFrame("Simple Calculator");
         frame.setSize(400,600);
@@ -27,179 +52,114 @@ public class CalculatorDisplay extends JFrame{
         display.setBounds(20,20,350,100);
         frame.add(display);
 
-        //ErrorHandler.setDisplay(this);
+        
 
         JButton btn0 = new JButton("0");
         btn0.setBounds(25,490,150,60);
         frame.add(btn0);
 
-        btn0.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                System.out.println("clicked 0!");
-                if(errorDisplayed){
-                    clearAll();
-                    errorDisplayed = false;
-                }
-                display.setText(display.getText()+"0");
-            }
-        });
+        addDigitButton(btn0, "0");
 
 
         JButton btn1 = new JButton("1");
         btn1.setBounds(25,400,60,60);
         frame.add(btn1);
 
-        btn1.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                if(errorDisplayed){
-                    clearAll();
-                    errorDisplayed = false;
-                }
-                display.setText(display.getText()+"1");
-            }
-        });
+        addDigitButton(btn1, "1");
 
 
         JButton btn2 = new JButton("2");
         btn2.setBounds(115,400,60,60);
         frame.add(btn2);
 
-        btn2.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+String.valueOf(2));
-            }
-        });
+        addDigitButton(btn2, "2");
 
         JButton btn3 = new JButton("3");
         btn3.setBounds(205,400,60,60);
         frame.add(btn3);
         
-        btn3.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+String.valueOf(3));
-            }
-        });
+        addDigitButton(btn3, "3");
 
 
         JButton btn4 = new JButton("4");
         btn4.setBounds(25,300,60,60);
         frame.add(btn4);
 
-        btn4.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+String.valueOf(4));
-            }
-        });
+        addDigitButton(btn4, "4");
 
         
         JButton btn5 = new JButton("5");
         btn5.setBounds(115,300,60,60);
         frame.add(btn5);
 
-        btn5.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+String.valueOf(5));
-            }
-        });
+        addDigitButton(btn5, "5");
 
         
         JButton btn6 = new JButton("6");
         btn6.setBounds(205,300,60,60);
         frame.add(btn6);
         
-        btn6.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+String.valueOf(6));
-            }
-        });
+        addDigitButton(btn6, "6");
 
 
         JButton btn7 = new JButton("7");
         btn7.setBounds(25,210,60,60);
         frame.add(btn7);
 
-        btn7.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+String.valueOf(7));
-            }
-        });
+        addDigitButton(btn7, "7");
 
         
         JButton btn8 = new JButton("8");
         btn8.setBounds(115,210,60,60);
         frame.add(btn8);
-        btn8.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+String.valueOf(8));
-            }
-        });
+
+        addDigitButton(btn8, "8");
 
 
         JButton btn9 = new JButton("9");
         btn9.setBounds(205,210,60,60);
         frame.add(btn9);
-        btn9.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+String.valueOf(9));
-            }
-        });
+        
+        addDigitButton(btn9, "9");
 
 
-        JButton btndivot = new JButton(".");
-        btndivot.setBounds(205,490,60,60);
-        frame.add(btndivot);
+        JButton btndot = new JButton(".");
+        btndot.setBounds(205,490,60,60);
+        frame.add(btndot);
 
-        btndivot.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+".");
-            }
-        });
+        addDigitButton(btndot, ".");
 
 
         JButton btnadd = new JButton("+");
         btnadd.setBounds(300,490,60,60);
         frame.add(btnadd);
 
-        btnadd.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+"+");
-            }
-        });
 
         
         JButton btnsub = new JButton("-");
         btnsub.setBounds(300,400,60,60);
         frame.add(btnsub);
 
-        btnsub.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+"-");
-            }
-        });
 
         
         JButton btnmul = new JButton("*");
         btnmul.setBounds(300,300,60,60);
         frame.add(btnmul);
 
-        btnmul.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+"*");
-            }
-        });
 
         
         JButton btndiv = new JButton("/");
         btndiv.setBounds(300,210,60,60);
         frame.add(btndiv);
 
-        btndiv.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText(display.getText()+"/");
-            }
-        });
 
+        JButton[] operatorButtons = {btnadd, btnsub, btnmul, btndiv};
 
+        addOperatorButton(btnadd, "+", operatorButtons);
+        addOperatorButton(btnsub, "-", operatorButtons);
+        addOperatorButton(btnmul, "*", operatorButtons);
+        addOperatorButton(btndiv, "/", operatorButtons);
+ 
         JButton btneq = new JButton("=");
         btneq.setBounds(275,150,90,50);
         frame.add(btneq);
@@ -220,8 +180,12 @@ public class CalculatorDisplay extends JFrame{
                     display.setText(answer);
                 }
                 catch (ExceptionHandler e){
-                    display.setText(e.getMessage()+"by handler");
+                    display.setText(e.getMessage());
                     errorDisplayed = true;
+                }
+
+                for (JButton b : operatorButtons){
+                    b.setEnabled(true);
                 }
             }
         });
@@ -249,7 +213,13 @@ public class CalculatorDisplay extends JFrame{
         btnac.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
                 display.setText("");
+            
+            clearAll();
+
+            for (JButton b: operatorButtons){
+                b.setEnabled(true);
             }
+        }
         });
 
         frame.setVisible(true);

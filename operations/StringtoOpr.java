@@ -25,17 +25,27 @@ public class StringtoOpr {
 
         double num1 = Double.parseDouble(input.substring(0,operatorIndex).trim());
         System.out.println(num1+" "+" "+ operator);     //************** */
-        double num2 = Double.parseDouble(input.substring(operatorIndex+1).trim());
-        System.out.println(num1+" "+num2+" "+ operator);    //************** */
+        String tempnum2= input.substring(operatorIndex+1);
 
-        // you're here <<<<<<<<>>>>>>>>>
-        if (Double.isNaN(num1) || Double.isNaN(num2)){
+        double num2 =0;
+        if (!tempnum2.isEmpty()){
+            num2 = Double.parseDouble(input.substring(operatorIndex+1).trim());
+            System.out.println(num1+" "+num2+" "+ operator);    //************** */
+        }
+        else{
             System.out.println("inside handler");
             throw new ExceptionHandler("Incomplete Input");
         }
+        
 
-
+        // you're here <<<<<<<<>>>>>>>>>
         /*
+        if (Double.isNaN(num1) || Double.isNaN(num2)){
+            
+        }
+
+
+        
         if (operator == '\0'){
             throw new ExceptionHandler("Missing Operator");
         }

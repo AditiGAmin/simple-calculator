@@ -26,3 +26,4 @@ A simple calculator application developed in Java using the Swing framework. Thi
 ---
 
 ## Calculator Interface
+![State Diagram](simple_calculator.png)

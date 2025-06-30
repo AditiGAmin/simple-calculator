@@ -29,6 +29,9 @@ public class CalculatorDisplay extends JFrame{
     public void addOperatorButton(JButton button, String operator,JButton[] operatorButtons){
             button.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
+                if (errorDisplayed){
+                    return;
+                }
                 if (display.getText().isEmpty()){
                     return;
                 }
@@ -92,6 +95,8 @@ public class CalculatorDisplay extends JFrame{
             }
         });
     }
+
+    
     public CalculatorDisplay(){
         JFrame frame = new JFrame("Simple Calculator");
         frame.setSize(400,600);
@@ -185,20 +190,14 @@ public class CalculatorDisplay extends JFrame{
         JButton btnadd = new JButton("+");
         btnadd.setBounds(300,490,60,60);
         frame.add(btnadd);
-
-
         
         JButton btnsub = new JButton("-");
         btnsub.setBounds(300,400,60,60);
         frame.add(btnsub);
-
-
         
         JButton btnmul = new JButton("*");
         btnmul.setBounds(300,300,60,60);
         frame.add(btnmul);
-
-
         
         JButton btndiv = new JButton("/");
         btndiv.setBounds(300,210,60,60);
@@ -256,9 +255,8 @@ public class CalculatorDisplay extends JFrame{
 
         configureClear(btnac, operatorButtons);
 
+
         frame.setVisible(true);
 
     }
 }
-
-

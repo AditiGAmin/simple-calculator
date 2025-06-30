@@ -21,13 +21,10 @@ public class StringtoOpr {
             return new OperationData(num, 0, '+'); 
         }
         
-        double num1 =0;
-        
+        double num1 = 0;
         num1 = Double.parseDouble(input.substring(0,operatorIndex).trim());
         if(Double.isNaN(num1)){
-        System.out.println(num1+" "+" "+ operator);     //************** */
         }
-
         
 
         double num2 =0;
@@ -35,7 +32,6 @@ public class StringtoOpr {
         
         if (!tempnum2.isEmpty()){
             num2 = Double.parseDouble(input.substring(operatorIndex+1).trim());
-            System.out.println(num1+" "+num2+" "+ operator);    //************** */
         }
         else{
             throw new ExceptionHandler("Incomplete Input");
@@ -50,7 +46,3 @@ public class StringtoOpr {
 
         }
     }
-
-
-
-

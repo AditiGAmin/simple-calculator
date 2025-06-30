@@ -24,8 +24,6 @@ public class Calculation {
             default:
                     return Double.NaN;
         }
-        System.out.println(result);
         return result;
     }
 }
-

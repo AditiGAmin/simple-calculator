@@ -14,4 +14,3 @@ public class OperationData {
     public double getNum2() {return num2;}
     public char getOperator() {return operator;}
 }
-

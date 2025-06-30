@@ -1,10 +1,9 @@
 package display;
 
 import javax.swing.*;
-import exceptions.*;
-
 import java.awt.event.*;
 import operations.*;
+import exceptions.*;
 
 public class CalculatorDisplay extends JFrame{
 
@@ -30,6 +29,9 @@ public class CalculatorDisplay extends JFrame{
     public void addOperatorButton(JButton button, String operator,JButton[] operatorButtons){
             button.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
+                if (display.getText().isEmpty()){
+                    return;
+                }
                 if (errorDisplayed){
                     clearAll();
                 }
@@ -40,6 +42,56 @@ public class CalculatorDisplay extends JFrame{
             }
         });
         }
+
+    public void configureDelete(JButton button, JButton[] operatorButtons){
+        button.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                String input = display.getText();
+                if (input != null && input.length()>0){
+                    char lastChar = input.charAt(input.length()-1);
+                    display.setText(input.substring(0, input.length()-1));
+
+                    // if last char was an operator, re-enable them
+                    if ("+-*/".indexOf(lastChar)>= 0){
+                        for (JButton op : operatorButtons){
+                            op.setEnabled(true);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    public void configureClear(JButton button, JButton[] operatorButtons){
+        button.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                clearAll();
+                for(JButton op : operatorButtons){
+                    op.setEnabled(true);
+                }
+            }
+        });
+    }
+
+    public void configureDecimal(JButton button){
+        button.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                String input = display.getText();
+                if(errorDisplayed){
+                    clearAll();
+                    input = "";
+                }
+                int lastOpIndex = Math.max(Math.max(input.lastIndexOf("+"),input.lastIndexOf("-")),
+                                           Math.max(input.lastIndexOf("*"),input.lastIndexOf("/"))
+                                           );
+                String currentSegment = input.substring(lastOpIndex + 1);
+
+                if (!currentSegment.contains(".")){
+                    display.setText(input+".");
+                }
+            }
+        });
+    }
     public CalculatorDisplay(){
         JFrame frame = new JFrame("Simple Calculator");
         frame.setSize(400,600);
@@ -127,7 +179,7 @@ public class CalculatorDisplay extends JFrame{
         btndot.setBounds(205,490,60,60);
         frame.add(btndot);
 
-        addDigitButton(btndot, ".");
+        configureDecimal(btndot);
 
 
         JButton btnadd = new JButton("+");
@@ -195,32 +247,14 @@ public class CalculatorDisplay extends JFrame{
         btndel.setBounds(150,150,100,50);
         frame.add(btndel);
 
-        btndel.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                String currentInput = display.getText();
-                if(currentInput != null && currentInput.length()>0){
-                    String newInput = currentInput.substring(0,currentInput.length()-1);
-                    display.setText(newInput);
-                }
-            }
-        });
+        configureDelete(btndel, operatorButtons);
 
         
         JButton btnac = new JButton("AC");
         btnac.setBounds(25,150,100,50);
         frame.add(btnac);
 
-        btnac.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                display.setText("");
-            
-            clearAll();
-
-            for (JButton b: operatorButtons){
-                b.setEnabled(true);
-            }
-        }
-        });
+        configureClear(btnac, operatorButtons);
 
         frame.setVisible(true);
 

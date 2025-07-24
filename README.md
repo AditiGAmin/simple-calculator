@@ -1,4 +1,4 @@
-# Java Calculator
+# Simple Calculator using Java
 
 A simple calculator application developed in Java using the Swing framework. This project emphasizes clean architecture, robust input handling, and a refined user experience for performing fundamental arithmetic operations.
 
